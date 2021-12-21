@@ -59,7 +59,7 @@ float fire_y = 0.0;
 float fire_z = 0.0;
 float distance;
 float fire_total_t;
-float fire_v=0.05;
+float fire_v = 0.05;
 float t_f = 0.1;
 float fire_t = 0.0;
 //fire_hand_animation
@@ -75,17 +75,17 @@ GLfloat no_shininess[] = { 0.0 };
 GLfloat low_shininess[] = { 1.0 };
 GLfloat high_shininess[] = { 100.0 };
 GLfloat mat_emission[] = { 0.3, 0.2, 0.2, 0.0 };
-GLfloat mat_f0[] = { 255./255., 102./255., 0. ,1.0 };
+GLfloat mat_f0[] = { 255. / 255., 102. / 255., 0. ,1.0 };
 GLfloat mat_diffuse_f0[] = { 255. / 255., 102. / 255., 0. , 1.0 };
-GLfloat mat_f1[] = { 178./255., 255./255., 0., 1.0};
+GLfloat mat_f1[] = { 178. / 255., 255. / 255., 0., 1.0 };
 GLfloat mat_diffuse_f1[] = { 178. / 255., 255. / 255., 0., 1.0 };
-GLfloat mat_f2[] = { 70./255., 117./255., 0., 1.0 };
+GLfloat mat_f2[] = { 70. / 255., 117. / 255., 0., 1.0 };
 GLfloat mat_diffuse_f2[] = { 70. / 255., 117. / 255., 0., 1.0 };
-GLfloat mat_f3[] = { 0., 102./255., 204./255., 1.0 };
+GLfloat mat_f3[] = { 0., 102. / 255., 204. / 255., 1.0 };
 GLfloat mat_diffuse_f3[] = { 0., 102. / 255., 204. / 255., 1.0 };
-GLfloat mat_f4[] = { 174./255., 86./255., 164./255., 1.0 };
+GLfloat mat_f4[] = { 174. / 255., 86. / 255., 164. / 255., 1.0 };
 GLfloat mat_diffuse_f4[] = { 174. / 255., 86. / 255., 164. / 255., 1.0 };
-GLfloat mat_earth[] = { 41./255., 41./255., 255./255. ,1.0 };
+GLfloat mat_earth[] = { 41. / 255., 41. / 255., 255. / 255. ,1.0 };
 GLfloat mat_diffuse_earth[] = { 41. / 255., 41. / 255., 255. / 255. ,1.0 };
 
 //swing arm
@@ -103,8 +103,8 @@ float snipe_z = 0.0;
 float snipe_distance = -1.4;
 //polyoffset
 int offsetmode = 0;
-GLfloat polyfactor = 1.0;
-GLfloat polyunits = 1.0;
+GLfloat polyfactor = 9.0;
+GLfloat polyunits = 5.0;
 
 static GLfloat colors[] = { 0, g, b,
                             0, g, b,
@@ -2148,15 +2148,15 @@ void setupPointers(void)
 void drawPlanet()
 {
     glPushMatrix();
-    glTranslatef(0.3 , 0.15 + x , -0.625 );
+    glTranslatef(0.3, 0.15 + x, -0.625);
     if (first_fire == 1) {
         fire_start_x = 0.3 + cam_x;
         fire_start_y = 0.15 + x + cam_y;
         fire_start_z = -0.625 + cam_z;
     }
-        
+
     //printf("x: %f y: %f z: %f\n", fire_start_x, fire_start_y, fire_start_z);
-    
+
     glPushMatrix();
     glRotatef((GLfloat)sunday, 0.0, 1.0, 0.0);
     glRotated(90, 1.0, 0.0, 0.0);
@@ -2170,7 +2170,7 @@ void drawPlanet()
         glPolygonOffset(polyfactor, polyunits);
     }
     glutSolidSphere(0.08, 20, 16);   // sun 
-    if (offsetmode == 1) {
+    if (offsetmode == 0) {
         glDisable(GL_POLYGON_OFFSET_FILL);
     }
     glPopMatrix();
@@ -2189,7 +2189,7 @@ void drawPlanet()
         glPolygonOffset(polyfactor, polyunits);
     }
     glutSolidSphere(0.02, 10, 8);    // planet 
-    if (offsetmode == 1) {
+    if (offsetmode == 0) {
         glDisable(GL_POLYGON_OFFSET_FILL);
     }
     glPopMatrix();
@@ -2201,7 +2201,7 @@ void set_hit() {
     }
 }
 void attack_hit(float x, float y) {
-    float h_x =x, h_y = y;
+    float h_x = x, h_y = y;
     if (h_x <= getv(105) && h_x >= getv(23) && h_y >= getv_b(71) && h_y <= getv_b(42)) {
         hit[0] = 1;
     }
@@ -2609,7 +2609,7 @@ void state_1() {
         glDrawArrays(GL_TRIANGLE_STRIP, 989, 7);
         glDrawArrays(GL_TRIANGLE_STRIP, 996, 7);
     }
-    
+
 
     //glDisableClientState(GL_VERTEX_ARRAY);
     //glDisableClientState(GL_COLOR_ARRAY);
@@ -2661,7 +2661,7 @@ void robot()
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(40, 1.0, 0.0, 0.0);
     glScalef(0.5 / 5, 0.3 / 5, 0.3 / 5);
- 
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f0);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f0);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2670,12 +2670,12 @@ void robot()
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(0.09, 0.06 , 0.0);
+    glTranslatef(0.09, 0.06, 0.0);
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(40, 1.0, 0.0, 0.0);
     glRotatef(-20, 0.0, 0.0, 1.0);
     glScalef(0.3 / 5, 0.6 / 5, 0.3 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f0);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f0);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2692,7 +2692,7 @@ void robot()
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(50, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f1);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f1);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2701,11 +2701,11 @@ void robot()
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(0.02, 0.13 , -0.08);
+    glTranslatef(0.02, 0.13, -0.08);
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(10, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f1);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f1);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2721,7 +2721,7 @@ void robot()
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(80, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f2);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f2);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2730,11 +2730,11 @@ void robot()
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(0.02, 0.03 , 0.0);
+    glTranslatef(0.02, 0.03, 0.0);
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(120, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f2);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f2);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2751,7 +2751,7 @@ void robot()
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(80, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f3);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f3);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2760,11 +2760,11 @@ void robot()
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(0.02, 0.03 , 0.0);
+    glTranslatef(0.02, 0.03, 0.0);
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(120, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f3);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f3);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2780,7 +2780,7 @@ void robot()
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(50, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f4);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f4);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2789,11 +2789,11 @@ void robot()
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(0.02, 0.13 , -0.08);
+    glTranslatef(0.02, 0.13, -0.08);
     glRotatef(rotate_fire_angle, 1.0, 0.0, 0.0);
     glRotatef(10, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f4);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f4);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2845,12 +2845,12 @@ void robot_2() {
     glPopMatrix();
     //finger 0
     glPushMatrix();
-    glTranslatef(-(0.6 + 0.25), -0.3 + x*1.2, -1.35 - 0.55);
+    glTranslatef(-(0.6 + 0.25), -0.3 + x * 1.2, -1.35 - 0.55);
     glPushMatrix();
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(40, 1.0, 0.0, 0.0);
     glScalef(0.5 / 5, 0.3 / 5, 0.3 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f0);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f0);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2859,12 +2859,12 @@ void robot_2() {
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(-0.09, 0.06+x*1.4, 0.0);
+    glTranslatef(-0.09, 0.06 + x * 1.4, 0.0);
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(40, 1.0, 0.0, 0.0);
     glRotatef(-20, 0.0, 0.0, 1.0);
     glScalef(0.3 / 5, 0.6 / 5, 0.3 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f0);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f0);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2876,12 +2876,12 @@ void robot_2() {
     glPopMatrix();
     //finger 1
     glPushMatrix();
-    glTranslatef(-(0.6 + 0.15), -0.2 + x*1.2, -1.35 - 0.55);
+    glTranslatef(-(0.6 + 0.15), -0.2 + x * 1.2, -1.35 - 0.55);
     glPushMatrix();
-   // glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
+    // glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(50, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f1);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f1);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2890,11 +2890,11 @@ void robot_2() {
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(-0.02, 0.13+x*1.4, -0.08);
-   // glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
+    glTranslatef(-0.02, 0.13 + x * 1.4, -0.08);
+    // glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(10, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f1);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f1);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2905,12 +2905,12 @@ void robot_2() {
     glPopMatrix();
     //finger 2
     glPushMatrix();
-    glTranslatef(-(0.6 + 0.08), -0.2 + x*1.2, -1.35 - 0.55);
+    glTranslatef(-(0.6 + 0.08), -0.2 + x * 1.2, -1.35 - 0.55);
     glPushMatrix();
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(80, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f2);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f2);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2919,11 +2919,11 @@ void robot_2() {
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(-0.02, 0.03+x*1.4, 0.0);
-   // glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
+    glTranslatef(-0.02, 0.03 + x * 1.4, 0.0);
+    // glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(120, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f2);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f2);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2935,12 +2935,12 @@ void robot_2() {
 
     //finger 3
     glPushMatrix();
-    glTranslatef(-(0.6 + 0.01), -0.2 + x*1.2, -1.35 - 0.55);
+    glTranslatef(-(0.6 + 0.01), -0.2 + x * 1.2, -1.35 - 0.55);
     glPushMatrix();
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(80, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-   
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f3);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f3);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2949,11 +2949,11 @@ void robot_2() {
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(-0.02, 0.03+x * 1.4, 0.0);
+    glTranslatef(-0.02, 0.03 + x * 1.4, 0.0);
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(120, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-   
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f3);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f3);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2964,12 +2964,12 @@ void robot_2() {
     glPopMatrix();
     //finger 4
     glPushMatrix();
-    glTranslatef(-(0.6 - 0.06), -0.2 + x*1.2, -1.35 - 0.55);
+    glTranslatef(-(0.6 - 0.06), -0.2 + x * 1.2, -1.35 - 0.55);
     glPushMatrix();
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(50, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.2 / 5, 0.75 / 5);
-    
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f4);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f4);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2978,11 +2978,11 @@ void robot_2() {
     glutSolidCube(1.0);
     glPopMatrix();
     glPushMatrix();
-    glTranslatef(-0.02, 0.13+1.4*x, -0.08);
+    glTranslatef(-0.02, 0.13 + 1.4 * x, -0.08);
     //glRotatef(rotate_arm_angle, 1.0, 0.0, 0.0);
     glRotatef(10, 1.0, 0.0, 0.0);
     glScalef(0.2 / 5, 0.75 / 5, 0.2 / 5);
-  
+
     glMaterialfv(GL_FRONT, GL_AMBIENT, mat_f4);
     glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse_f4);
     glMaterialfv(GL_FRONT, GL_SPECULAR, no_mat);
@@ -2995,11 +2995,11 @@ void robot_2() {
 void floor() {
     glTranslatef(0., -1.5, 0.);
     glColor3f(2. / 256., 222. / 256., 131. / 256.);
-        glBegin(GL_QUADS);
-            glVertex3f(10., 0., 10.);
-            glVertex3f(10., 0., -10.);
-            glVertex3f(-10., 0., -10.);
-            glVertex3f(-10., 0., 10.);
+    glBegin(GL_QUADS);
+    glVertex3f(10., 0., 10.);
+    glVertex3f(10., 0., -10.);
+    glVertex3f(-10., 0., -10.);
+    glVertex3f(-10., 0., 10.);
     glEnd();
 }
 void wall() {
@@ -3015,29 +3015,29 @@ void aimline() {
     glColor3f(1, 0, 0);
     glLineWidth(1);
     glBegin(GL_LINES);
-        glVertex3f(0.0 + cam_x, 0.001 + cam_y + x, cam_z - 0.1);
-        glVertex3f(0.0 + cam_x, -0.001 + cam_y + x, cam_z - 0.1);
-        glVertex3f(0.0005 + cam_x, 0. + cam_y + x, cam_z - 0.1);
-        glVertex3f(-0.0005 + cam_x, 0. + cam_y + x, cam_z - 0.1);
-        /*glVertex3f(fire_start_x, fire_start_y, fire_start_y);
-        glVertex3f(cam_x, cam_y, 0.0);*/
+    glVertex3f(0.0 + cam_x, 0.001 + cam_y + x, cam_z - 0.1);
+    glVertex3f(0.0 + cam_x, -0.001 + cam_y + x, cam_z - 0.1);
+    glVertex3f(0.0005 + cam_x, 0. + cam_y + x, cam_z - 0.1);
+    glVertex3f(-0.0005 + cam_x, 0. + cam_y + x, cam_z - 0.1);
+    /*glVertex3f(fire_start_x, fire_start_y, fire_start_y);
+    glVertex3f(cam_x, cam_y, 0.0);*/
     glEnd();
 }
 void snipe() {
     glColor3f(1, 0, 0);
     glLineWidth(1);
     glBegin(GL_LINES);
-        glVertex3f(0.0 + cam_x, 1. + cam_y + x, cam_z + snipe_z - 0.5);
-        glVertex3f(0.0 + cam_x, -1. + cam_y + x, cam_z + snipe_z - 0.5);
-        glVertex3f(0.5 + cam_x, 0. + cam_y + x, cam_z + snipe_z - 0.5);
-        glVertex3f(-0.5 + cam_x, 0. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(0.0 + cam_x, 1. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(0.0 + cam_x, -1. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(0.5 + cam_x, 0. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(-0.5 + cam_x, 0. + cam_y + x, cam_z + snipe_z - 0.5);
     glEnd();
     glColor4f(0.5, 0., 0.5, 0.25);
     glBegin(GL_QUADS);
-        glVertex3f(-5. + cam_x, -10. + cam_y + x, cam_z + snipe_z - 0.5);
-        glVertex3f(5. + cam_x, -10. + cam_y + x, cam_z + snipe_z - 0.5);
-        glVertex3f(5. + cam_x, 10. + cam_y + x, cam_z + snipe_z - 0.5);
-        glVertex3f(-5. + cam_x, 10. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(-5. + cam_x, -10. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(5. + cam_x, -10. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(5. + cam_x, 10. + cam_y + x, cam_z + snipe_z - 0.5);
+    glVertex3f(-5. + cam_x, 10. + cam_y + x, cam_z + snipe_z - 0.5);
     glEnd();
 }
 void display(void)
@@ -3050,26 +3050,26 @@ void display(void)
     }
     glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
     glLoadIdentity();
     gluLookAt(cam_x, cam_y + x, cam_z + snipe_z, cam_x, cam_y + x, cam_z - 5.0, 0.0, 1.0, 0.0);
     setupMethod = POINTER;
     setupPointers();
     glColor3f(1., 1., 1.);
     glPushMatrix();
-        //glScalef(20.0, 20.0, 1.0);
-        //glTranslatef(0., 1., 0.);
-        state_1();
-        glDisableClientState(GL_VERTEX_ARRAY);
-        glDisableClientState(GL_COLOR_ARRAY);
+    //glScalef(20.0, 20.0, 1.0);
+    //glTranslatef(0., 1., 0.);
+    state_1();
+    glDisableClientState(GL_VERTEX_ARRAY);
+    glDisableClientState(GL_COLOR_ARRAY);
     glPopMatrix();
     //floor
     glPushMatrix();
-        floor();
+    floor();
     glPopMatrix();
     glPushMatrix();
-    
-        
+
+
     glPopMatrix();
     //glLoadIdentity();
     // start drawing
@@ -3077,28 +3077,30 @@ void display(void)
     glEnable(GL_LIGHT0);
     glColor3f(1., 1., 1.);
     if (bgtoggle == 1) {
-        /*glEnable(GL_BLEND);
+        glEnable(GL_BLEND);
         glEnable(GL_POLYGON_SMOOTH);
         glEnable(GL_LINE_SMOOTH);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);*/
-        glEnable(GLUT_MULTISAMPLE);
+        glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+        //glEnable(GLUT_MULTISAMPLE);
     }
     glPushMatrix();
-        if (fire == 1) {
-            glTranslatef(fire_x - 0.3, fire_y - fire_start_y + cam_y, fire_z + 0.625);
-        }else {
-            glTranslatef(cam_x, cam_y, cam_z);
-        }
-        drawPlanet();
+    if (fire == 1) {
+        glTranslatef(fire_x - 0.3, fire_y - fire_start_y + cam_y, fire_z + 0.625);
+    }
+    else {
+        glTranslatef(cam_x, cam_y, cam_z);
+    }
+    drawPlanet();
+    glPopMatrix();
+    //glEnable()
+    glPushMatrix();
+    glTranslatef(cam_x, cam_y, cam_z);
+    robot();
     glPopMatrix();
     glPushMatrix();
-        glTranslatef(cam_x, cam_y, cam_z);
-        robot();
-    glPopMatrix();
-    glPushMatrix();
-        glTranslatef(cam_x, cam_y, cam_z);
-        robot_2();
+    glTranslatef(cam_x, cam_y, cam_z);
+    robot_2();
     glPopMatrix();
     //printf("x:%f\ty:%f\t\z:%f\n",camPosx,camPosy,camPosz);
     //system("cls");
@@ -3110,11 +3112,11 @@ void display(void)
     else {
         snipe();
     }
-    if (bgtoggle == 1) {
-        /*glDisable(GL_LINE_SMOOTH);
+    if (bgtoggle == 0) {
+        glDisable(GL_LINE_SMOOTH);
         glDisable(GL_BLEND);
-        glDisable(GL_POLYGON_SMOOTH);*/
-        glDisable(GLUT_MULTISAMPLE);
+        glDisable(GL_POLYGON_SMOOTH);
+        //glDisable(GLUT_MULTISAMPLE);
     }
     if (fogmode == 1) {
         glDisable(GL_FOG);
@@ -3149,7 +3151,7 @@ void init(void)
     printf("GL_LINE_WIDTH_GRANULARITY value is %3.1f\n", values[0]);
 
     glGetFloatv(GL_LINE_WIDTH_RANGE, values);
-    printf("GL_LINE_WIDTH_RANGE values are %3.1f %3.1f\n",values[0], values[1]);
+    printf("GL_LINE_WIDTH_RANGE values are %3.1f %3.1f\n", values[0], values[1]);
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
@@ -3207,96 +3209,97 @@ void mouse(int button, int state, int x, int y)
 void keyboard(unsigned char key, int x, int y)
 {
     switch (key) {
-        case 27:
-            exit(0);
-            break;
-        case 'w':
-        case 'W':
-            cam_z -= 0.01;
-            glutPostRedisplay();
-            break;
-        case 's':
-        case 'S':
-            cam_z += 0.01;
-            glutPostRedisplay();
-            break;
-        case 'a':
-        case 'A':
-            cam_x -= 0.01;
-            glutPostRedisplay();
-            break;
-        case 'd':
-        case 'D':
-            cam_x += 0.01;
-            glutPostRedisplay();
-            break;
-        case 32:
-            if (double_jump_mode == 0) {
-                if (jump == 0) {
-                    jump = 1;
-                    if (first_j == 0) {
-                        first_j = 1;
-                    }
-                }
-            }else{
+    case 27:
+        exit(0);
+        break;
+    case 'w':
+    case 'W':
+        cam_z -= 0.01;
+        glutPostRedisplay();
+        break;
+    case 's':
+    case 'S':
+        cam_z += 0.01;
+        glutPostRedisplay();
+        break;
+    case 'a':
+    case 'A':
+        cam_x -= 0.01;
+        glutPostRedisplay();
+        break;
+    case 'd':
+    case 'D':
+        cam_x += 0.01;
+        glutPostRedisplay();
+        break;
+    case 32:
+        if (double_jump_mode == 0) {
+            if (jump == 0) {
                 jump = 1;
-                first_j = 1;
+                if (first_j == 0) {
+                    first_j = 1;
+                }
             }
-            
-            break;
-        case 'r':
-        case 'R':
-            set_hit();
-            break;
-        case 'x':
-        case 'X':
-            if (rotate_arm == 0) {
-                rotate_arm = 1;
-                rotate_arm_angle = 0.0;
-            }
-        case 'm':
-        case 'M':
-            if (double_jump_mode == 0) {
-                double_jump_mode = 1;
-                printf("open double jump mode.\n");
-            }
-            else {
-                double_jump_mode = 0;
-                printf("close double jump mode.\n");
-            }
-            break;
-        case 'c':
-        case 'C':
-            bgtoggle = !bgtoggle;
-            printf("now bg = %d\n", bgtoggle);
-            glutPostRedisplay();
-            break;
-        case 'f':
-        case 'F':
-            fogmode = !fogmode;
-            //printf("now bg = %d\n", bgtoggle);
-            glutPostRedisplay();
-            break;
-        case 'b':
-        case 'B':
-            snipemode = !snipemode;
-            if (snipemode == 0) {
-                snipe_z = 0.0;
-            }
-            else {
-                snipe_z = snipe_distance;
-            }
-            printf("move:%f\n", snipe_z);
-            glutPostRedisplay();
-            break;
-        case 'p':
-        case 'P':
-            offsetmode = !offsetmode;
-            //printf("now bg = %d\n", bgtoggle);
-            glutPostRedisplay();
-            break;
-        default:
-            break;
+        }
+        else {
+            jump = 1;
+            first_j = 1;
+        }
+
+        break;
+    case 'r':
+    case 'R':
+        set_hit();
+        break;
+    case 'x':
+    case 'X':
+        if (rotate_arm == 0) {
+            rotate_arm = 1;
+            rotate_arm_angle = 0.0;
+        }
+    case 'm':
+    case 'M':
+        if (double_jump_mode == 0) {
+            double_jump_mode = 1;
+            printf("open double jump mode.\n");
+        }
+        else {
+            double_jump_mode = 0;
+            printf("close double jump mode.\n");
+        }
+        break;
+    case 'c':
+    case 'C':
+        bgtoggle = !bgtoggle;
+        //printf("now bg = %d\n", bgtoggle);
+        glutPostRedisplay();
+        break;
+    case 'f':
+    case 'F':
+        fogmode = !fogmode;
+        //printf("now bg = %d\n", bgtoggle);
+        glutPostRedisplay();
+        break;
+    case 'b':
+    case 'B':
+        snipemode = !snipemode;
+        if (snipemode == 0) {
+            snipe_z = 0.0;
+        }
+        else {
+            snipe_z = snipe_distance;
+        }
+        printf("move:%f\n", snipe_z);
+        glutPostRedisplay();
+        break;
+    case 'p':
+    case 'P':
+        offsetmode = !offsetmode;
+        //printf("now bg = %d\n", bgtoggle);
+        glutPostRedisplay();
+        break;
+    default:
+        break;
     }
 
 }
@@ -3378,8 +3381,8 @@ void idle() {
     //fire
     if (fire == 1) {
         if (first_fire == 1) {
-            first_fire = 0; 
-            fire_dis_x = cam_x - fire_start_x ;
+            first_fire = 0;
+            fire_dis_x = cam_x - fire_start_x;
             fire_dis_y = cam_y + x - fire_start_y;
             fire_dis_z = 0. - fire_start_z;
             //printf("disx: %f disy: %f disz: %f y:%f fy:%f \n", fire_dis_x, fire_dis_y, fire_dis_z, cam_y +x, fire_start_y);
